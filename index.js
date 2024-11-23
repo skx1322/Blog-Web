@@ -218,13 +218,7 @@ db.connect();
     
                 const Blog = Blog_Loader.rows;
                 let Search = null;
-                // const Search = {
-                //     blog_id: req.query.blog_id || null,
-                //     title: req.query.title || null,
-                //     Search_Blog: await db.query("SELECT * FROM blog_post WHERE blog_id = $1",
-                //         [Search.blog_id] || null
-                //     )
-                // };
+
                 if (req.query.blog_id) {
                     const Blog_Search = await db.query("SELECT * FROM blog_post WHERE blog_id = $1",
                         [req.query.blog_id]
