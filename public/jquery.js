@@ -67,12 +67,11 @@ $(document).ready(function(){
 
 
 $(document).ready(function () {
-    // Show the popup form on overlay click
+
     $(".hover-overlay").on("click", function () {
         $(".popup-form-container").removeClass("hidden").fadeIn();
     });
 
-    // Hide the popup form when clicking the cancel button
     $("#cancel-button").on("click", function () {
         $(".popup-form-container").fadeOut().addClass("hidden");
     });
@@ -84,12 +83,12 @@ $(document).ready(function () {
             const reader = new FileReader();
 
             reader.onload = function (e) {
-                $("#Preview").attr("src", e.target.result); // Update image src with preview
+                $("#Preview").attr("src", e.target.result); 
             };
 
-            reader.readAsDataURL(file); // Convert the file to a data URL
+            reader.readAsDataURL(file);
         } else {
-            $("#Preview").attr("src", "image/Test.jpg"); // Reset to default if no file
+            $("#Preview").attr("src", "image/Test.jpg"); 
         }
     });
 
