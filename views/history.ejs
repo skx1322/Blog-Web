@@ -1,0 +1,36 @@
+<%- include('partials/header.ejs') %>
+    <%- include('partials/navigation.ejs') %>
+    <main class="double-flex login-page" style="margin-top: 7rem;">
+        <div class="option">
+            <h2>History</h2>
+        </div>
+        <div class="history-container">
+
+        <div class="option" style="margin-top: 3rem; margin-bottom: 3rem;">
+            <h3>Result:</h3>
+        </div> 
+        <% Blog.forEach(function(Blogs) { %>
+            <div class="history_">
+                <img src="/image/<%= Blogs.blog_image %>" alt="image" class="blog-img" width="192" height="120"style="border-radius: 2rem; margin-bottom: 1rem;">
+                <div class="blog-body-history">
+                    <div class="blog-text">
+                        <a class="post-time" href="/blog/<%= Blogs.blog_id %>">
+                            <%= Blogs.username %> 
+                            · <%= Blogs.time_post.toDateString() %></a>
+                        <a class="blog-title" href="/blog/<%= Blogs.blog_id %>">
+                            <%= Blogs.title %></a>
+                        <p class="content" style="text-align: justify;"><%= Blogs.descriptions %></p>
+                    </div>
+                    <div class="blog-tags" style="margin-top: 1rem;">
+                        <p class="Management"><%= Blogs.tags.toUpperCase() %></p>
+                    </div>
+                </div> 
+                <a href="/delete/<%= Blogs.blog_id%>%>">
+                    <i class="fa-solid fa-trash fa-xl"></i>
+                </a>
+            </div>
+        <% }) %>
+        </div>
+
+    </main>
+    <%- include('partials/footer.ejs') %>

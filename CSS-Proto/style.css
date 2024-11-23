@@ -1,0 +1,720 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* CSS variable  */
+:root{
+    --black: #1A1A1A;
+    --white: #FFFFFF;
+    --brown: #6941C6;
+    --bright-brown: #F9F5FF;
+
+    --purple: #6941C6;
+    --button-purple: #F9F5FF;
+    --blue: #3538CD;
+    --button-blue: #EEF4FF;
+    --maroon: #C11574;
+    --button-maroon: #FDF2FA;
+    --green: #027A48;
+    --button-green: #ECFDF3;
+    --red: #C01048;
+    --button-red: #FFF1F3;
+
+    --font-size-base: 21px;
+    --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
+    --font-size-lg: clamp(1.56rem, 1vw + 1.31rem, 2.11rem);
+    --font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
+
+    --padding-base: 0.5rem 1rem 0.5rem 1rem;
+    --padding-md: 1rem 2rem 1rem 2rem;
+    --padding-lg: 2rem 4rem 2rem 4rem;
+    --padding-xl: 4rem 8rem 4rem 8rem;
+
+    --radius: 0.5rem;
+}
+/* Basic templating */
+*{
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  margin: 0;
+  padding: 0;
+}
+body{
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+h1{
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+}
+
+h2{
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+}
+
+h3{
+    font-size: var(--font-size-md);
+    font-weight: 400;
+}
+
+p{
+    font-size: var(--font-size-base);
+    font-weight: 300;
+}
+
+a{
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--black);
+}
+
+.edit-log a{
+    border: none;
+    color: var(--white);
+    background-color: var(--maroon);
+    border-radius: var(--radius);
+    padding: var(--padding-base);
+    font-size: var(--font-size-md);
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.history-log a{
+    border: none;
+    color: var(--white);
+    background-color: var(--green);
+    border-radius: var(--radius);
+    padding: var(--padding-base);
+    font-size: var(--font-size-md);
+    font-weight: 300;
+    cursor: pointer;
+}
+
+button{
+    border: none;
+    color: var(--white);
+    background-color: var(--blue);
+    border-radius: var(--radius);
+    padding: var(--padding-base);
+    font-size: var(--font-size-md);
+    font-weight: 300;
+    cursor: pointer;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+form div{
+    display: flex;
+    flex-direction: column; 
+}
+form input, form label{
+    font-weight: 400;
+}
+
+.double-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    align-items: center;
+}
+.dobule-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+header{
+    width: 100%;
+}
+/* Login/Register Page */
+.login-page{
+    /* background-color: rgba(250, 250, 250, 0.9); */
+    border-radius: var(--radius);
+    width: 100%;
+}
+
+.logger{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logger-image img{
+    max-width: 100%;
+    max-height: auto;
+    border-radius: 2rem;
+}
+
+@media only screen and (max-width: 900px) {
+    .double-container{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .logger-image{
+        grid-row: 2;
+        max-width: 70%;
+    }
+    .register input, .login input{
+        width: 350px;
+        text-align: left;
+        border-radius: 2rem;
+        font-size: var(--font-size-base);
+        padding: var(--padding-base);
+        border: 2px solid var(--bright-brown);
+    }
+}
+
+.option{
+    background-color: var(--bright-brown);
+    width: fit-content;
+    padding: var(--padding-md);
+    border-radius: 2rem;
+    display: flex;
+    gap: 2rem;
+}
+
+.log{
+    background-color: var(--brown);
+}
+
+.button-active{
+    background-color: var(--brown);
+    color: var(--white);
+    transition: background-color 0.3s ease;
+}
+
+.button-inactive{
+    background: var(--bright-brown);
+    color: #1A1A1A;
+    transition: background-color 0.3s ease;
+}
+
+.option button:hover{
+    background-color: var(--brown);
+    color: white;
+}
+
+.register label, .login label{
+    font-size: var(--font-size-base);
+}
+
+.register input, .login input{
+    width: 500px;
+    text-align: left;
+    border-radius: 2rem;
+    font-size: var(--font-size-base);
+    padding: var(--padding-md);
+    border: 2px solid var(--bright-brown);
+}
+
+.register-box, .login-box{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+}
+.other-login{
+    margin-top: 2rem;
+}
+
+/* Blog - Header */
+header{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    max-width: 1440px; 
+    align-items: center;
+    padding: 0 2rem 0 2rem;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.logo i{
+    color: var(--purple);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.logo i:hover{
+    color: var(--red);
+    transform: scale(1.2); 
+}
+
+.navigation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+
+.navigation a{
+    font-size: var(--font-size-lg);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.navigation a:hover{
+    font-size: var(--font-size-lg);
+    color: var(--purple);
+    text-decoration: underline;
+    transform: scale(1.05); 
+}
+
+.profile{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 1rem;
+}
+.profile img{
+    border: var(--purple) 2px solid;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.profile img:hover{
+    border: var(--purple) 2px solid;
+    box-shadow: #3538CD 2px 2px 20px;
+    transform: scale(1.05); 
+}
+
+
+.slider-inactive{
+    display: none;
+}
+
+.slider-bar{
+    display: none;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    z-index: 1;
+    background-color: var(--bright-brown);
+    border-radius: var(--border-radius);
+    height: fit-content;
+    position: absolute;
+    border-radius: var(--radius);
+    top: 0;
+    right: 0;
+    width: 150px;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%);
+    margin-top: 6rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+.slider-bar.active {
+    display: flex;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+
+
+@media only screen and (max-width: 800px) {
+    header{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .navigation{
+        display: none;
+    }
+    .fa-bars{
+        transform: rotate(0deg);
+        transition: transform 0.3s ease-in-out;
+    }
+    .fa-bars.rotate {
+        transform: rotate(90deg);
+        transition: transform 0.3s ease-in-out;
+        color: var(--black);
+    }    
+}
+
+/* Main */
+
+/* H2 title */
+
+main h2{
+    background: rgb(249,245,255);
+    background: linear-gradient(270deg, rgba(249,245,255,1) 0%, rgba(105,65,198,1) 50%);
+    padding: var(--padding-md);
+    border-radius: var(--radius);
+    color: var(--button-purple);
+}
+
+/* Confgiure/Sorting form */
+.configure{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.sorting form{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sorting label, .sorting input, .search input{
+    font-size: var(--font-size-base);
+    border-radius: 1rem;
+    padding: var(--padding-base);
+    cursor: pointer;
+    border: 2px var(--purple) solid;
+    
+}
+
+.sorting select{
+    border: 2px var(--purple) solid;
+    width: 300px;
+    padding: var(--padding-base);
+    border-radius: var(--radius);
+}
+
+/* blog contaienr */
+
+.all-blog-post{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    gap: 3rem;
+}
+
+.blog-body{
+    display: inline-block;
+    height: 190px;
+}
+
+.blog_{
+    border: 1px silver solid;
+    border-radius: 2rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.blog_:hover{
+    transform: scale(1.01); 
+}
+
+.blog_ img{
+    border: 2px solid silver;
+    padding: 1rem;
+    border-radius: 2rem;
+}
+
+.blog_ .blog-text{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.blog-text a{
+    color: var(--purple);    
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.blog-text a:hover{
+    color: var(--blue);    
+}
+
+
+.blog-text p{
+    font-size: var(--font-size-base);
+    font-weight: 400;
+}
+.blog-tags p{
+    padding: 0.5rem;
+    color: var(--purple);
+    background-color: var(--button-purple);
+    width: fit-content;
+    border-radius: 2rem;
+}
+
+/* Blog content */
+
+.blog-page{
+    padding: 0 20rem 0 20rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.blog-page a{
+    padding: var(--padding-base);
+    background-color: var(--purple);
+    border-radius: var(--radius);
+    color: var(--white);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.blog-page a:hover{
+    background-color: var(--button-green);
+    color: var(--black);
+    transform: scale(1.05); 
+}
+
+
+.content .post-time{
+    border-bottom: 2px var(--purple) solid;
+    margin-bottom: 1rem;
+}
+
+.content p{
+    text-align: justify;
+
+}
+
+/* Edit.html CSS */
+
+.post form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+.post input, .post select, .post textarea{
+    padding: var(--padding-base);
+    font-size: var(--padding-base);
+    border-radius: var(--radius);
+    border: 1px var(--purple) solid;
+    background-color: var(--button-purple);
+    box-shadow: var(--purple) 2px 2px;
+}
+
+.post form label{
+    font-size: var(--font-size-md);
+    margin-bottom: 1rem;
+}
+
+.post form .Add, .Edit{
+    width: 100px;
+    padding: var(--padding-base);
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.post form .Add input:hover, .Edit:hover{
+    box-shadow: none;
+    color: var(--white);
+    background-color: var(--purple);
+    transform: scale(1.01); 
+}
+
+#content{
+    width: 95%;
+    height: 100px;
+}
+
+/* Profile setting */
+.profile-setting{
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr;
+    gap: 2rem;
+    padding: 0 2rem 0 2rem;
+}
+.pfp, .email{
+    display: flex;
+    justify-content: start;
+    gap: 2rem;
+    align-items: center;
+}
+
+.profile-picture-container {
+    position: relative;
+    display: inline-block;
+    width: 100px; /* Adjust as needed */
+    border-radius: 2rem;
+    overflow: hidden;
+}
+
+/* Image styles */
+.ProfilePicture {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 2rem;
+}
+
+/* Overlay that appears on hover */
+.hover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Gray filter */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    cursor: pointer;
+}
+
+/* Show overlay on hover */
+.profile-picture-container:hover .hover-overlay {
+    opacity: 1;
+}
+
+/* Popup form styles */
+.popup-form-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 0.5rem;
+    display: none;
+}
+
+.popup-form-container.hidden {
+    display: none;
+}
+
+.crop-container {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+}
+#croppable-image {
+    width: 100%; 
+    height: auto;
+}
+
+.preview{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.preview img{
+    width: 300px;
+    border-radius: 2rem;
+}
+
+#change-profile-form input{
+    border: 1px var(--purple) solid;
+    padding: var(--padding-lg);
+    border-radius: var(--radius);
+}
+
+#change-profile-form button{
+    padding: var(--padding-base);
+}
+
+#change-profile-form button:hover{
+    background-color: var(--bright-brown);
+    color: var(--black);
+    box-shadow: var(--purple) 2px 2px;
+}
+
+#change-profile-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.profile-top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-top button{
+    width: fit-content;
+    padding: var(--padding-md);
+}
+
+.edit:hover, .history-log a:hover, .edit-log a:hover{
+    background-color: var(--button-purple);
+    color: #1A1A1A;
+}
+
+.cred-setting{
+    display: inline-block;
+}
+
+.cred-setting form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.cred-setting form label, .cred-setting form input , .cred-setting form select{
+    font-size: var(--font-size-base);
+    padding: var(--padding-base);
+    border-radius: var(--radius);
+}
+.cred-setting form input , .cred-setting form select{
+    border: var(--purple) 1px solid;
+    background-color: var(--button-purple);
+    box-sizing: var(--purple) 2px 10px;
+}
+.cred-setting .edit, .Add{
+    cursor: pointer;
+    height: fit-content;
+    grid-row-start: 4;
+}
+
+/* History log */
+.history_{
+    border: 1px silver solid;
+    border-radius: 2rem;
+    padding: 1rem;
+    gap: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.history_ i{
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.history_ i:hover{
+    transform: scale(1.05); 
+    color: var(--red);
+}
+
+.search form{
+    display: grid;
+    grid-template-columns: 1fr 0.2fr;
+    align-items: center;
+}
+
+.search form select, .search form option{
+    padding: var(--padding-base);
+    border-radius: var(--radius);
+    background-color: var(--button-purple);
+    border: 2px var(--purple) solid;
+    font-size: var(--font-size-md);
+}
+
+.search form input:hover{
+    background-color: var(--button-purple);
+    color: var(--white);
+}

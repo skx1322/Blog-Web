@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<body>
+    <header style="margin-top: 3rem;">
+        <h2>Nerdanta</h2>
+    </header>
+    <main class="double-container login-page" style="margin-top: 3rem;">
+
+        <div class="logger-image">
+            <img src="image/Test.jpg" alt="image lorem lol" width="580" height="auto" style="max-width: 100%; height: auto;">
+        </div>
+
+        <div class="logger">
+            <h3>Welcome to Blog Site</h3>
+            <div class="option double-flex">
+                <button id="login-btn" class="log" title="If you have account already">
+                    Login
+                </button>
+                <button id="register-btn" class="register button-inactive">
+                    Register
+                </button>
+            </div>
+
+            <p style="text-align: center; width: 450px;" id="word-day">Log in account here, don't have account? Head over to register</p>
+            
+            <div class="login-box">
+                <form action="/login" method="post" class="register">
+                    <div class="form-group">
+                        <label for="email">Email Address :</label>
+                        <input type="email" class="form-control" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password :</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-dark" style="width: fit-content;">Register</button>
+                </form>
+                <div class="other-login">
+                    <a class="btn btn-block" href="/auth/google" role="button">
+                        <i class="fab fa-google"></i>
+                        Sign In with Google
+                    </a>
+                </div>
+            </div>
+
+            <div class="register-box" style="display: none;">
+                <form action="/register" method="post" class="register" title="If you don't have an account yet">
+                    <div class="form-group">
+                        <label for="email">Email Address :</label>
+                        <input type="email" class="form-control" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Username :</label>
+                        <input type="text" class="form-control" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password :</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-dark" style="width: fit-content;">Register</button>
+                </form>
+                <div class="other-login">
+                    <a class="btn btn-block" href="/auth/google" role="button">
+                        <i class="fab fa-google"></i>
+                        Sign Up with Google
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="jquery.js"></script>
+</body>
+</html>

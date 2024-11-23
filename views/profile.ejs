@@ -1,0 +1,128 @@
+<%- include('partials/header.ejs') %>
+    <%- include('partials/navigation.ejs') %>
+        <main>
+            <h2 style="margin-top: 1rem;">Profile:</h2>
+            <div class="profile-setting" style="margin-top: 1rem;">
+                <div class="profile-top">
+                    <div class="pfp">
+                        <div class="profile-picture-container">
+                            <img src="image/<%= Load.profile_picture  %>" alt="Profile Picture" width="100" style="border-radius: 2rem;" class="ProfilePicture">
+                            <div class="hover-overlay">Change</div>
+                        </div>
+    
+                        <div class="popup-form-container hidden">
+                            <h3>Crop Your Profile Picture</h3>
+                            <div class="crop-container">
+                                <img id="croppable-image" src="" alt="Image to crop">
+                            </div>
+                            <form id="change-profile-form" style="margin-top: 2rem;" method="post" action="/changepfp" enctype="multipart/form-data">
+                                <label for="new-profile-picture">Upload New Profile Picture:</label>
+                                <input type="file" id="new-profile-picture" name="profile_picture" required title="Upload">
+                                <button type="submit">Save</button>
+                                <button type="button" id="cancel-button">Cancel</button>
+                            </form>
+                        </div>
+                        <div class="double-flex">
+                            <% if (Load.gender === 'Male') { %>
+                                <h3>Mr. <%= Load.nickname %></h3>
+                            <% } else if (Load.gender === 'Female') { %>
+                                <h3>Ms. <%= Load.nickname %></h3>
+                            <% } else { %>
+                                <h3><%= Load.nickname %></h3>
+                            <% } %>
+                            <p><%= Load.email %></p>
+                        </div>
+                    </div>
+                    <div class="history-edit-container double-container">
+                        <div class="edit-log">
+                            <a href="/profile/edit">Edit</a>
+                        </div>
+        
+                        <div class="history-log">
+                            <a href="/profile/history">History</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="cred-setting">
+                    <form action="/profile_setting" method="post">
+                        <div class="input-container full-name">
+                            <label for="Full-Name">Full Name</label>
+                            <input type="text" id="Full-Name" name="fullname" placeholder="<%= Load.name %>" minlength="6" maxlength="40" required> 
+                        </div>
+    
+                        <div class="input-container nick-name">
+                            <label for="Nick-Name">Nick Name</label>
+                            <input type="text" id="Nick-Name" name="nickname" placeholder="<%= Load.nickname %>" minlength="6" maxlength="40" required> 
+                        </div>
+    
+                        <div class="input-container gender-select">
+                            <label for="Gender">Gender</label>
+                            <select id="Gender" name="Gender">
+                                <option value="None" <%= Load.gender === 'null' ? 'selected' : '' %>>None</option> 
+                                <option value="Male" <%= Load.gender === 'Male' ? 'selected' : '' %>>Male</option>
+                                <option value="Female" <%= Load.gender === 'Female' ? 'selected' : '' %>>Female</option>
+                                <option value="Other" <%= Load.gender === 'Other' ? 'selected' : '' %>>Other</option>
+                            </select>
+                        </div>
+    
+                        <div class="input-container timezone-input">
+                            <label for="timezone-offset">Timezone</label>
+                            <select name="timezone_offset" id="timezone-offset" class="span5">
+                                <option value="-12:00" <%= Load.timezone === '-12:00' ? 'selected' : '' %>>(GMT -12:00) Eniwetok, Kwajalein</option>
+                                <option value="-11:00" <%= Load.timezone === '-11:00' ? 'selected' : '' %>>(GMT -11:00) Midway Island, Samoa</option>
+                                <option value="-10:00" <%= Load.timezone === '-10:00' ? 'selected' : '' %>>(GMT -10:00) Hawaii</option>
+                                <option value="-09:50" <%= Load.timezone === '-09:50' ? 'selected' : '' %>>(GMT -9:30) Taiohae</option>
+                                <option value="-09:00" <%= Load.timezone === '-09:00' ? 'selected' : '' %>>(GMT -9:00) Alaska</option>
+                                <option value="-08:00" <%= Load.timezone === '-08:00' ? 'selected' : '' %>>(GMT -8:00) Pacific Time (US &amp; Canada)</option>
+                                <option value="-07:00" <%= Load.timezone === '-07:00' ? 'selected' : '' %>>(GMT -7:00) Mountain Time (US &amp; Canada)</option>
+                                <option value="-06:00" <%= Load.timezone === '-06:00' ? 'selected' : '' %>>(GMT -6:00) Central Time (US &amp; Canada), Mexico City</option>
+                                <option value="-05:00" <%= Load.timezone === '-05:00' ? 'selected' : '' %>>(GMT -5:00) Eastern Time (US &amp; Canada), Bogota, Lima</option>
+                                <option value="-04:50" <%= Load.timezone === '-04:50' ? 'selected' : '' %>>(GMT -4:30) Caracas</option>
+                                <option value="-04:00" <%= Load.timezone === '-04:00' ? 'selected' : '' %>>(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
+                                <option value="-03:50" <%= Load.timezone === '-03:50' ? 'selected' : '' %>>(GMT -3:30) Newfoundland</option>
+                                <option value="-03:00" <%= Load.timezone === '-03:00' ? 'selected' : '' %>>(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
+                                <option value="-02:00" <%= Load.timezone === '-02:00' ? 'selected' : '' %>>(GMT -2:00) Mid-Atlantic</option>
+                                <option value="-01:00" <%= Load.timezone === '-01:00' ? 'selected' : '' %>>(GMT -1:00) Azores, Cape Verde Islands</option>
+                                <option value="+00:00" <%= Load.timezone === '+00:00' ? 'selected' : '' %>>(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
+                                <option value="+01:00" <%= Load.timezone === '+01:00' ? 'selected' : '' %>>(GMT +1:00) Brussels, Copenhagen, Madrid, Paris</option>
+                                <option value="+02:00" <%= Load.timezone === '+02:00' ? 'selected' : '' %>>(GMT +2:00) Kaliningrad, South Africa</option>
+                                <option value="+03:00" <%= Load.timezone === '+03:00' ? 'selected' : '' %>>(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
+                                <option value="+03:50" <%= Load.timezone === '+03:50' ? 'selected' : '' %>>(GMT +3:30) Tehran</option>
+                                <option value="+04:00" <%= Load.timezone === '+04:00' ? 'selected' : '' %>>(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
+                                <option value="+04:50" <%= Load.timezone === '+04:50' ? 'selected' : '' %>>(GMT +4:30) Kabul</option>
+                                <option value="+05:00" <%= Load.timezone === '+05:00' ? 'selected' : '' %>>(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
+                                <option value="+05:50" <%= Load.timezone === '+05:50' ? 'selected' : '' %>>(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
+                                <option value="+05:75" <%= Load.timezone === '+05:75' ? 'selected' : '' %>>(GMT +5:45) Kathmandu, Pokhara</option>
+                                <option value="+06:00" <%= Load.timezone === '+06:00' ? 'selected' : '' %>>(GMT +6:00) Almaty, Dhaka, Colombo</option>
+                                <option value="+06:50" <%= Load.timezone === '+06:50' ? 'selected' : '' %>>(GMT +6:30) Yangon, Mandalay</option>
+                                <option value="+07:00" <%= Load.timezone === '+07:00' ? 'selected' : '' %>>(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
+                                <option value="+08:00" <%= Load.timezone === '+08:00' ? 'selected' : '' %>>(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
+                                <option value="+08:75" <%= Load.timezone === '+08:75' ? 'selected' : '' %>>(GMT +8:45) Eucla</option>
+                                <option value="+09:00" <%= Load.timezone === '+09:00' ? 'selected' : '' %>>(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
+                                <option value="+09:50" <%= Load.timezone === '+09:50' ? 'selected' : '' %>>(GMT +9:30) Adelaide, Darwin</option>
+                                <option value="+10:00" <%= Load.timezone === '+10:00' ? 'selected' : '' %>>(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
+                                <option value="+10:50" <%= Load.timezone === '+10:50' ? 'selected' : '' %>>(GMT +10:30) Lord Howe Island</option>
+                                <option value="+11:00" <%= Load.timezone === '+11:00' ? 'selected' : '' %>>(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
+                                <option value="+11:50" <%= Load.timezone === '+11:50' ? 'selected' : '' %>>(GMT +11:30) Norfolk Island</option>
+                                <option value="+12:00" <%= Load.timezone === '+12:00' ? 'selected' : '' %>>(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
+                                <option value="+12:75" <%= Load.timezone === '+12:75' ? 'selected' : '' %>>(GMT +12:45) Chatham Islands</option>
+                                <option value="+13:00" <%= Load.timezone === '+13:00' ? 'selected' : '' %>>(GMT +13:00) Apia, Nukualofa</option>
+                                <option value="+14:00" <%= Load.timezone === '+14:00' ? 'selected' : '' %>>(GMT +14:00) Line Islands, Tokelau</option>
+                            </select> 
+                        </div>
+                        <button class="edit" type="submit" style="width: fit-content;">Change</button>
+                    </form>
+                </div>
+                <div class="email-address">
+                    <h3>My Email Address</h3>
+                    <div class="email">
+                        <i class="fa-regular fa-envelope"></i>
+                        <div class="double-flex">
+                            <p><%= Load.email %></p>
+                            <p> <%= Load.register_date.toDateString() %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+<%- include('partials/footer.ejs') %>

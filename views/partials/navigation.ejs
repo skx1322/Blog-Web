@@ -1,0 +1,28 @@
+<header style="margin-top: 3rem;">
+    <div class="logo" >
+        <a href="/leave"><i class="fa-solid fa-right-from-bracket fa-xl" title="Exit"></i></a>
+        <h2><%= Load.nickname %></h2>
+    </div>
+    <div class="navigation">
+        <a href="/blog">Blog</a>
+        <a href="/post">Post</a>
+        <a href="/FAQ">FAQs</a>
+        <a href="/about">About</a>
+    </div>
+    <div class="profile">
+        <div id="timezone" data-timezone="<%= Load.timezone %>" style="display:none;"></div>
+        <div class="time"><h3>[ Clock ]</h3></div>
+        <a href="/profile">
+            <img src="/image/<%= Load.profile_picture %>" alt="Profile" width="52" style="border-radius: 2rem;" title="Profile Setting">
+        </a>
+    </div>
+    <button class="navigation-more slider-inactive">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="slider-bar">
+        <a href="/blog">Blog</a>
+        <a href="/post">Post</a>
+        <a href="/FAQ">FAQs</a>
+        <a href="/about">About</a>
+    </div>
+</header>

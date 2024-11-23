@@ -1,0 +1,36 @@
+<%- include('partials/header.ejs') %>
+    <%- include('partials/navigation.ejs') %>
+    <main>
+        <div class="option" style="margin-top: 5rem;">
+            <h2>Post your journey</h2>
+        </div>
+        <div class="post" style="margin-top: 3rem;">
+            <form action="/add" method="post" class="add-form" enctype="multipart/form-data">
+                <div>
+                    <label for="Title">Title:</label>
+                    <input type="text" id="Title" name="Title" required maxlength="40">
+                </div>
+                <div>
+                    <label for="Description">Description:</label>
+                    <input type="text" id="Description" name="Description" required maxlength="120">
+                </div>
+
+                <%- include('partials/tags.ejs') %>
+
+                <div>
+                    <label for="image">Image:</label>
+                    <input type="file" name="image" class="Image-Upload" required>
+                </div>
+
+                <div>
+                    <label for="content" title="Share detail about your blog">Content: </label>
+                    <textarea id="content" name="content" required maxlength="65535"></textarea> <!--Textarea for long paragraph input-->            
+                </div>
+
+                <div class="Add">
+                    <input type="submit" value="Submit" class="Add">
+                </div>
+            </form>
+        </div>
+    </main>
+<%- include('partials/footer.ejs') %>

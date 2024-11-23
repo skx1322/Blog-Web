@@ -1,0 +1,15 @@
+<a href="/blog">Return</a>
+<div class="image">
+    <h2 class="blog-title" style="margin-bottom: 1rem;"><%= Blog.title %></h2>
+    <img src="image/<%= Blog.blog_image %>" alt="image" width="770" height="330">
+</div>
+<div class="content">
+    <h3 class="post-time" 
+    ><%= Blog.username %> · 
+        <%= Blog.time_post %></h3>
+    <h3 class="content" style="text-align: justify;"><%= Blog.descriptions %></h3>
+    <p style="margin-top: 2rem;"><%= Blog.content %></p>
+    <div class="blog-tags" style="margin-top: 1rem;">
+        <p class="Management"><%= Blog.tags.toUpperCase() %></p>
+    </div>
+</div>

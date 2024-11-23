@@ -1,0 +1,71 @@
+<%- include('partials/header-index.ejs') %>
+    <header style="margin-top: 3rem;">
+        <h2>Nerdanta</h2>
+    </header>
+    <main class="double-container login-page" style="margin-top: 3rem;">
+
+        <div class="logger-image">
+            <h3>placeholder</h3>
+            <img src="image/November.png" alt="image lorem lol" width="580" height="auto" style="max-width: 100%; height: auto;">
+        </div>
+
+        <div class="logger">
+            <h3>Welcome to Blog Site</h3>
+            <div class="option double-flex">
+                <button id="login-btn" class="log" title="If you have account already">
+                    Login
+                </button>
+                <button id="register-btn" class="register button-inactive">
+                    Register
+                </button>
+            </div>
+
+            <p style="text-align: center; width: 450px;" id="word-day">Log in account here, don't have account? Head over to register</p>
+            
+            <div class="login-box">
+                <form action="/login" method="post" class="login">
+                    <div class="form-group">
+                        <label for="email">Email Address :</label>
+                        <input type="email" class="form-control" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password :</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-dark" style="width: fit-content;">Login</button>
+                </form>
+
+                <div class="other-login">
+                    <a class="btn btn-block" href="/auth/google" role="button">
+                        <i class="fab fa-google"></i>
+                        Sign In with Google
+                    </a>
+                </div>
+            </div>
+
+            <div class="register-box" style="display: none;">
+                <form action="/register" method="post" class="register" title="If you don't have an account yet">
+                    <div class="form-group">
+                        <label for="email">Email Address :</label>
+                        <input type="email" class="form-control" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username :</label>
+                        <input type="text" class="form-control" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password :</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-dark" style="width: fit-content;">Register</button>
+                </form>
+                <div class="other-login">
+                    <a class="btn btn-block" href="/auth/google" role="button">
+                        <i class="fab fa-google"></i>
+                        Sign Up with Google
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+<%- include('partials/footer.ejs') %>

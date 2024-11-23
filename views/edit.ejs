@@ -1,0 +1,111 @@
+<%- include('partials/header.ejs') %>
+    <%- include('partials/navigation.ejs') %>
+    <main>
+        <div class="option">
+            <h2>Editing</h2>
+        </div>
+        <div class="top-bar double-container" style="margin-top: 1rem;">
+            <div class="post">
+                <form action="/find" method="post" class="add-form">
+                    <div>
+                        <select id="tags" required name="id"> 
+                            <option>None</option>
+
+                            <% Blog.forEach(function(Blogs) { %>
+                                <option value="<%= Blogs.blog_id %>">
+                                    <%= Blogs.title %>
+                                    · 
+                                    <%= Blogs.time_post.toDateString() %>
+                                </option>
+                            <% }) %>
+
+                        </select>
+                    </div>
+                    <div class="Search">
+                        <input type="submit" value="Search" class="Add">
+                    </div>
+                </form>
+            </div>
+                
+            <div class="search">
+                <form action="/search-find" method="POST" class="search__form" role="search">
+                    <input 
+                      type="search"
+                      aria-label="Search"
+                      id="searchInput"
+                      name="searchTerm"
+                      placeholder="Search your blog..."
+                    >
+                    
+                  </form>
+            </div>
+        </div>
+        <div class="main-container" style="margin-top: 1rem;">
+            <h2>Current Search: </h2>
+        </div>
+            <div class="edit-post post" style="margin-top: 3rem;">
+                <form action="/change-blog" method="post" class="add-form" enctype="multipart/form-data">
+                    <input type="hidden" name="blog_id" value="<%= Search && Search.blog_id ? Search.blog_id : '' %>">
+                    <div>
+                        <label for="Title">Title:</label>
+                        <input type="text" id="Title" name="Title" required maxlength="40"
+                        value="<%= Search && Search.title ? `${Search.title}` : '' %>">
+                    </div>
+                    <div>
+                        <label for="Description">Description:</label>
+                        <input type="text" id="Description" name="Description" required maxlength="120"
+                        value="<%= Search && Search.descriptions ? `${Search.descriptions}` : '' %>">
+                    </div>
+    
+                    <div>
+                        <label for="tags">Category:</label>
+                        <select id="tags" name="tags" required>
+                            <option value="software-development" <%= Search && Search.tags === "software-development" ? "selected" : "" %>>Software Development</option>
+                            <option value="leadership" <%= Search && Search.tags === "leadership" ? "selected" : "" %>>Leadership</option>
+                            <option value="management" <%= Search && Search.tags === "management" ? "selected" : "" %>>Management</option>
+                            <option value="data-science" <%= Search && Search.tags === "data-science" ? "selected" : "" %>>Data Science</option>
+                            <option value="marketing" <%= Search && Search.tags === "marketing" ? "selected" : "" %>>Marketing</option>
+                            <option value="finance" <%= Search && Search.tags === "finance" ? "selected" : "" %>>Finance</option>
+                            <option value="human-resources" <%= Search && Search.tags === "human-resources" ? "selected" : "" %>>Human Resources</option>
+                            <option value="project-management" <%= Search && Search.tags === "project-management" ? "selected" : "" %>>Project Management</option>
+                            <option value="cybersecurity" <%= Search && Search.tags === "cybersecurity" ? "selected" : "" %>>Cybersecurity</option>
+                            <option value="networking" <%= Search && Search.tags === "networking" ? "selected" : "" %>>Networking</option>
+                            <option value="social-media" <%= Search && Search.tags === "social-media" ? "selected" : "" %>>Social Media</option>
+                            <option value="customer-service" <%= Search && Search.tags === "customer-service" ? "selected" : "" %>>Customer Service</option>
+                            <option value="sales" <%= Search && Search.tags === "sales" ? "selected" : "" %>>Sales</option>
+                            <option value="entrepreneurship" <%= Search && Search.tags === "entrepreneurship" ? "selected" : "" %>>Entrepreneurship</option>
+                            <option value="innovation" <%= Search && Search.tags === "innovation" ? "selected" : "" %>>Innovation</option>
+                            <option value="sustainability" <%= Search && Search.tags === "sustainability" ? "selected" : "" %>>Sustainability</option>
+                            <option value="education" <%= Search && Search.tags === "education" ? "selected" : "" %>>Education</option>
+                            <option value="healthcare" <%= Search && Search.tags === "healthcare" ? "selected" : "" %>>Healthcare</option>
+                            <option value="legal" <%= Search && Search.tags === "legal" ? "selected" : "" %>>Legal</option>
+                            <option value="other" <%= Search && Search.tags === "other" ? "selected" : "" %>>Other</option>
+                        </select>
+                    </div>
+    
+                    <div>
+                        <label for="image">Image:</label>
+                        <input type="file" name="new_image" class="Image-Upload">
+                    </div>
+    
+                    <div>
+                        <label for="content" title="Share detail about your blog">Content: </label>
+                        <textarea id="content" name="content" required maxlength="65535">
+                            <%= Search && Search.content ? Search.content : '' %>
+                        </textarea> 
+                    </div>
+
+                    <% if (Search && Search.blog_image) { %>
+                        <div class="image-preview">
+                            <p>Current Image:</p>
+                            <img src="/image/<%= Search.blog_image %>" alt="Blog Image" style="width: 384px; height: auto; margin-bottom: 10px;">
+                        </div>
+                    <% } %>
+    
+                    <div class="Add">
+                        <input type="submit" value="Submit" class="Add">
+                    </div>
+                </form>
+        </div>
+    </main>
+<%- include('partials/footer.ejs') %>

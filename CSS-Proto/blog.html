@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/cb35bc25b0.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<body>
+    <header style="margin-top: 3rem;">
+        <div class="logo" >
+            <h2>Nerdanta</h2>
+        </div>
+        <div class="navigation">
+            <a href="/blog">Blog</a>
+            <a href="/post">Post</a>
+            <a href="/FAQ">FAQs</a>
+            <a href="/about">About</a>
+        </div>
+        <div class="profile">
+            <div class="time"><h3>[ Clock ]</h3></div>
+            <a href="/profile">
+                <img src="image/FuHua3.jpg" alt="Profile" width="52" style="border-radius: 2rem;">
+            </a>
+        </div>
+        <button class="navigation-more slider-inactive">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="slider-bar">
+            <a href="/blog">Blog</a>
+            <a href="/post">Post</a>
+            <a href="/FAQ">FAQs</a>
+            <a href="/about">About</a>
+        </div>
+    </header>
+
+    <main>
+        <h2 style="margin-top: 5rem;">Posts:</h2>
+        <div class="configure" style="margin-top: 3rem;">
+            <div class="sorting">
+                <form action="/sort" method="post">
+                    <label for="sorting">Sort By:</label>
+                    <select id="sorting">
+                        <option value="asc">A-Z</option>
+                        <option value="desc">Z-A</option>
+                        <option value="new">Newest</option> 
+                        <option value="old">Oldest</option> 
+                    </select> <!--A selection box-->
+                    
+                    <input type="submit">
+                </form>
+            </div>
+            <div class="search">
+                <form action="/search" method="POST" class="search__form" role="search">
+                    <input 
+                      type="search"
+                      aria-label="Search"
+                      id="searchInput"
+                      name="searchTerm"
+                      placeholder="Seach the site..."
+                    >
+                    
+                  </form>
+            </div>
+        </div>
+        <div class="all-blog-post" style="margin-top: 3rem;">
+            
+            <!-- Template -->
+            <div class="blog_">
+                <img src="image/Test.jpg" alt="image" class="blog-img" width="384" height="240">
+                <div class="blog-body" style="margin-top: 2rem;">
+                    <div class="blog-text">
+                        <a class="post-time" href="/">Zakery Joseph · 1 Jan 2024</a>
+                        <a class="blog-title" href="/" href="test">Zakery Leadership lesson</a>
+                        <p class="content" style="text-align: justify;">Like to know the secrets of transforming a 2-14 team into a 3x Super Bowl winning Dynasty?</p>
+                    </div>
+                    <div class="blog-tags" style="margin-top: 1rem;">
+                        <p class="Management">Management</p>
+                    </div>
+                </div> 
+            </div>
+            <div class="blog_">
+                <img src="image/Test.jpg" alt="image" class="blog-img" width="384" height="240">
+                <div class="blog-body" style="margin-top: 2rem;">
+                    <div class="blog-text">
+                        <a class="post-time" href="/">Zakery Joseph · 1 Jan 2024</a>
+                        <a class="blog-title" href="/" href="test">Zakery Leadership lesson</a>
+                        <p class="content" style="text-align: justify;">Like to know the secrets of transforming a 2-14 team into a 3x Super Bowl winning Dynasty?</p>
+                    </div>
+                    <div class="blog-tags" style="margin-top: 1rem;">
+                        <p class="Management">Management</p>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </main>
+    <script src="jquery.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+PEEN Stack Website
+PostgreSQL
+Express.JS
+EJS
+Node.js
+
+Page List:
+Front
+
+Blog
+Search
+Login/Register
+Profile Setting
+Upload/Edit/Delete
+
+FAQ
+About
+Contact
+Term of Service
+
+ADMIN
+
+Feature:
+1. User are able to register account and access cookie
+    1. Google Integration
+2. User are able to login existing account and access cookie
+    1. Google Integration
+3. User are able to upload, edit and delete a blog post 
+    - The blog post characteristic
+    1. ID
+    2. Uploader-Name 
+    3. Upload-Date 
+    4. Title // User input
+    5. Small-description // User input
+    6. Tags-Selection // User input
+    7. Like/Dislike // Other input
+        - Sub-blog 
+        1. ID 
+        2. description/article
+        3. Image upload //
+            - Comment (maybe)
+4. Search Feature 
+5. Profile Setting
+    1. ID
+    2. Username
+    3. Profile Picture
+    4. Dark Mode || Light Mode
+    5. About-User
+    6. Profile description
+    7. Post-History
+        - Analytic Dashboard page 
+            1. User upload/edit/delete history
+            2. User online time
+            3. User activity graph
+6. Blog page rendering
+    1. Filter Sorting
+        - A-Z
+        - Z-A 
+        - Oldest
+        - Newest
+        - Most Like
+        - Least Like
+7. Pagination
+    1. If 6 blog rendered, create new page
+        - 
+
+8. ADMIN
+    1. Admin have the power to delete any blog post 
+    2. Admin can edit/filter blog post content
+    3. Admin Tags
+    4. Analytic Dashboard on overall
+        - Total User
+        - Filter to search User Analytic Dashboard 
+        - Graph of User traffic
+        - Ability to check DB 
+
+
+DB table
+1. Users 
+    -1.1 Session/cookie
+2. BlogPost 
+    - 2.1 SubBlogPost
+    - 2.2 Comment
+    - 2.3 Like/Dislike
+3.  User Profile Setting
+4. User Analytic
+5. AdminAction
+6. Search History
+7. SIte Analytic
+8. FAQ, TERM ABOUT content
+
+Planning, Analyze, Design, Implement, Launch
+
+Potenital:
+    - Monetization
+    - Privacy
+    - Forum Category
+
+System Design
+
+sql REFERENCES
+CREATE TABLE student (
+    id SERIAL PRIMARY KEY,
+    first_name TEXT, 
+    last_name TEXT
+);
+
+CREATE TABLE contact_detail(
+    id INTEGER REFERENCES student(id) UNIQUE,
+    tel TEXT,
+    address TEXT
+);
+
+INSERT INTO student (first_name, last_name)
+VALUES ('Yu', 'Xue'), ('Zakery', 'Fowler');
+INSERT INTO contact_detail (id, tel, address)
+VALUES (1, '+123456789', '75350 Taman Merdeka'), (2, '+123456780', 'Manila');
+
+CREATE TABLE homework_submission ( 
+    id SERIAL PRIMARY KEY,
+    mark INTEGER, 
+    student_id INTEGER REFERENCES student(id)
+);
+
+INSERT INTO homework_submission(mark, student_id)
+VALUES (87, 1), (92, 1), (100, 2), (96, 2);
+
+CREATE TABLE class (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(45)
+);
+
+CREATE TABLE enrollment (
+    student_id INTEGER REFERENCES student(id),
+    class_id INTEGER REFERENCES class(id),
+    PRIMARY KEY (student_id, class_id)
+);
+
+INSERT INTO class(title) 
+VALUES ('English'), ('Physic'), ('Math'), ('CS');
+
+INSERT INTO enrollment VALUES(1, 1), (1, 2), (1, 3), (1,4), (2, 1), (2, 2), (2, 3), (2, 4);
+
+(SELECT ALL FROM ENROLLMENT WHERE COMBINE STUDENT TO ENROLLMENT, CLASS TO ENROLLMENT)
+SELECT *
+FROM enrollment
+JOIN student ON student.id = enrollment.student_id
+JOIN class ON class.id = enrollment.class_id;
+
+(SELECT id, first_name, last_name, title FROM ENROLLMENT WHERE COMBINE STUDENT TO ENROLLMENT, CLASS TO ENROLLMENT)
+SELECT student.id AS id, first_name, last_name, title
+FROM enrollment 
+JOIN student ON student.id = enrollment.student_id
+JOIN class ON class.id = enrollment.class_id; 
