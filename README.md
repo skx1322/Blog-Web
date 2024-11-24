@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/b0f8cab5-191d-4ccc-8347-58768e337321)# BlogEJS
+# BlogEJS
 This Project mainly utilize Node.js, Express and EJS and various Node Package Module libraries.
 
 # 1. Node.js and Terminal Install
