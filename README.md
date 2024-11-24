@@ -1,4 +1,4 @@
-# BlogEJS
+![image](https://github.com/user-attachments/assets/b0f8cab5-191d-4ccc-8347-58768e337321)# BlogEJS
 This Project mainly utilize Node.js, Express and EJS and various Node Package Module libraries.
 
 # 1. Node.js and Terminal Install
@@ -23,14 +23,23 @@ This Project mainly utilize Node.js, Express and EJS and various Node Package Mo
 11. passport-local
 12. pg (PostgreSQL Database)
 
+```bash
 npm install 
+```
+
+```bash
+# If the package didn't install the libraries
+npm i bcrypt body-paser dotenv ejs express express-session multer passport passport-google-oauth2 passport-local pg
+npm i nodemon # Optional
+```
 
 - It'll automatically install all the libraries according to the JSON.
 
 
 # 3. Step up the an .env while and fill in the root.
 - Ensure you have PostgreSQL PG-ADMIN 4 opened in your local environment
-
+- And you can set up GOOGLE SECURITY in Google Cloud by starting a new project
+```bash
 GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret
 SESSION_SECRET=your-session-secret
@@ -39,6 +48,8 @@ PG_HOST=localhost
 PG_DATABASE=mydatabase
 PG_PASSWORD=your-postgres-password
 PG_PORT=5432
+```
+
 
 # 4. Once all the following step is done, do the following in terminal
 nodemon index.js
