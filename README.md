@@ -6,6 +6,8 @@ This Project mainly utilize Node.js, Express and EJS and various Node Package Mo
 --> https://nodejs.org/en
 - Make sure you also have Terminal environment such as Git Bash.
 --> https://git-scm.com/downloads
+- Ensure you have Google Authentification Client ID setup in Google Cloud Project
+--> https://developers.google.com/identity/sign-in/web/sign-in
 
 # 2. Set up NPM
 - This step is to install the Node.js 3rd party libraries.
