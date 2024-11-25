@@ -52,8 +52,11 @@ PG_PORT=5432
 
 
 # 4. Once all the following step is done, do the following in terminal
+```bash
 nodemon index.js
+```
+(If 'nodemon index.js doesn't work, use the following)
 
-
-
-
+```bash
+npx nodemon index.js
+```
