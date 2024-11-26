@@ -1,6 +1,9 @@
 # BlogEJS
 This Project mainly utilize Node.js, Express and EJS and various Node Package Module libraries.
 
+# Warning
+The Backend code currently have an issue (Forgot to implement Restful Api, i'm so dumb) 
+
 # 1. Node.js and Terminal Install
 - Make sure you're using the Node.js version at least 20.18.0
 --> https://nodejs.org/en
