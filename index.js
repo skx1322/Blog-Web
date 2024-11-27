@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.js";
 import blogRoutes from "./routes/blog.js";
 import profileRoutes from "./routes/profile.js";
 import postRoutes from "./routes/post.js";
+import listRoutes from "./routes/listing.js"
 
 const app = express();
 const port = 3000;
@@ -35,6 +36,7 @@ app.use(authRoutes); // use auth.js from routes
 app.use(blogRoutes); // use blog.js from routes
 app.use(profileRoutes); // render profile and profile setting features
 app.use(postRoutes);
+app.use(listRoutes);
 
 app.use(express.static(`public`));
 

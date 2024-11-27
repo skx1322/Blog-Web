@@ -109,7 +109,7 @@ db.connect();
     });
 
     router.get(`/profile/edit`, Authenticated,async(req, res)=>{
-
+        
             try {
                 const profile_search = await db.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
                     [req.user.id]
