@@ -190,11 +190,10 @@ db.connect();
                 Tags: req.body.tags,
                 Content: req.body.content,
             };
-
+            const oldImageResult  = await db.query("SELECT blog_image FROM blog_post WHERE blog_id = $1",
+                [req.body.blog_id]
+            );
             if (!req.file)  {
-                const oldImageResult  = await db.query("SELECT blog_image FROM blog_post WHERE blog_id = $1",
-                    [req.body.blog_id]
-                );
                 const OldImage = oldImageResult.rows[0].blog_image;
                     console.log(Change.Old_Image)
                     Change.Image = Change.Old_Image; // If no new image, use the old image
@@ -204,6 +203,17 @@ db.connect();
                 res.redirect("/profile/edit")
             }
             if (req.file.filename){
+                const Old_Image = oldImageResult.rows[0];
+                console.log(`Old PFP ${Old_Image.blog_image}`)
+
+                const oldFilePath = path.join(__dirname, 'public', 'image', Old_Image.blog_image);
+                fs.unlink(oldFilePath, (error)=>{
+                    if(error){
+                        console.error(`Error Deleting Old Blog Image: ${error}`);
+                    }
+                    console.log("Successfully Replaced Old Image")
+                });
+
                 let NewImage = req.file.filename;
                 await db.query("UPDATE blog_post SET title = $1, descriptions = $2, tags = $3, blog_image = $4, content = $5 WHERE blog_id = $6",
                     [Change.Title, Change.Description, Change.Tags, NewImage, Change.Content, Change.ID]
