@@ -24,7 +24,7 @@ app.use(
       saveUninitialized: true,
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7 // ms * s * m * h * d 
-      }
+      },
     })
   );
 
@@ -35,7 +35,7 @@ app.use(passport.session());
 app.use(authRoutes); // use auth.js from routes
 app.use(blogRoutes); // use blog.js from routes
 app.use(profileRoutes); // render profile and profile setting features
-app.use(postRoutes);
+app.use(postRoutes); 
 app.use(listRoutes);
 
 app.use(express.static(`public`));

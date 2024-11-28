@@ -1,9 +1,10 @@
 import express from "express";
 import pg from "pg";
 import env from "dotenv";
-
+import fs from "fs";
 import multer from "multer";
 import path from "path"
+const __dirname = path.resolve();
 
 const router = express.Router();
 
@@ -74,6 +75,24 @@ db.connect();
         console.log(upload_pfp)
 
         try {
+            const result = await db.query(
+                `SELECT * FROM profile WHERE user_id = $1`,
+                [req.user.id]
+            )
+            const Old_Profile = result.rows[0];
+            console.log(`Old PFP ${Old_Profile.profile_picture}`)
+
+            if (Old_Profile.profile_picture !== 'Default.png'){
+
+                const oldFilePath = path.join(__dirname, 'public', 'image', Old_Profile.profile_picture);
+                fs.unlink(oldFilePath, (error)=>{
+                    if(error){
+                        console.error(`Error Deleting Old PFP: ${error}`);
+                    }
+                    console.log("Successfully Replaced Old File")
+                });
+            };
+
             await db.query(
                 `UPDATE profile SET profile_picture = $1 WHERE user_id = $2`,
                 [upload_pfp, req.user.id]

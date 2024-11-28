@@ -104,6 +104,12 @@ db.connect();
     }));
 
     // local login method
+    /* This is a login from local function using passport npm,
+    It first receive email and password from the input in index.ejs.
+    It'll then check if it's a existing email
+    If yes, then we will encrypt the password 
+    If the encrypted password matched the account existing encrypted password, return valid/true
+    If true, return user object variable and consider flash as success*/
     passport.use(
         "local",
         new Strategy(
@@ -111,26 +117,24 @@ db.connect();
             async function verify(email, password, cb) {
             try {
                 const result = await db.query("SELECT * FROM account WHERE email = $1", [email]);
-                if (result.rows.length > 0) {
+                if (!result.rows.length > 0) {
+                    return cb(null, false);
+                } 
                 const user = result.rows[0];
                 const storedHashedPassword = user.password;
                 bcrypt.compare(password, storedHashedPassword, (err, valid) => {
-                    if (err) {
+                if (err) {
                     console.error("Error during password comparison:", err);
                     return cb(err);
-                    }
-                    if (valid) {
-
+                }
+                if (valid) {
                     console.log(`Hello ${user.name}, Your ID is ${user.id}`);
                     console.log("Success Login!")
                     return cb(null, user);
-                    } else {
-                    return cb(null, false);
-                    }
-                });
                 } else {
-                return cb(null, false);
+                    return cb(null, false);
                 }
+                });
             } catch (error) {
                 console.error(error);
                 return cb(error);
