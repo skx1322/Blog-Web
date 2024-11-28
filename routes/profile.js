@@ -1,9 +1,10 @@
 import express from "express";
-import pg from "pg";
 import env from "dotenv";
 import fs from "fs";
 import multer from "multer";
 import path from "path"
+import itemsPool from "../DBConfig.js";
+
 const __dirname = path.resolve();
 
 const router = express.Router();
@@ -37,16 +38,6 @@ const upload = multer({
 
 env.config();
 
-const db = new pg.Client({
-    user: process.env.PG_USER,
-    host: process.env.PG_HOST,
-    database: process.env.PG_DATABASE,
-    password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT,
-});
-
-db.connect();
-
     const Authenticated = (req, res, next) => {
         if (req.isAuthenticated()) {
             return next();
@@ -56,7 +47,7 @@ db.connect();
 
     router.get("/profile", Authenticated, async(req, res)=>{
             try {
-                const result = await db.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
+                const result = await itemsPool.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
                     [req.user.id]
                 );
                     const profile = result.rows[0];
@@ -75,7 +66,7 @@ db.connect();
         console.log(upload_pfp)
 
         try {
-            const result = await db.query(
+            const result = await itemsPool.query(
                 `SELECT * FROM profile WHERE user_id = $1`,
                 [req.user.id]
             )
@@ -93,7 +84,7 @@ db.connect();
                 });
             };
 
-            await db.query(
+            await itemsPool.query(
                 `UPDATE profile SET profile_picture = $1 WHERE user_id = $2`,
                 [upload_pfp, req.user.id]
             ) // FINALLY
@@ -112,11 +103,11 @@ db.connect();
             CurrentUser: req.user.id
         }
         try {
-            await db.query(
+            await itemsPool.query(
                 "UPDATE account SET name = $1 WHERE id = $2",
                 [Setting.Fullname, Setting.CurrentUser] 
             )
-            await db.query(
+            await itemsPool.query(
                 "UPDATE profile SET nickname = $1, gender = $2, timezone = $3 WHERE user_id = $4",
                 [Setting.Nickname, Setting.Gender, Setting.timezone, Setting.CurrentUser]
             )
@@ -130,19 +121,19 @@ db.connect();
     router.get(`/profile/edit`, Authenticated,async(req, res)=>{
         
             try {
-                const profile_search = await db.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
+                const profile_search = await itemsPool.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
                     [req.user.id]
                 );
                 const profile = profile_search.rows[0];
     
-                const Blog_Loader = await db.query("SELECT * FROM blog_post WHERE user_post = $1",
+                const Blog_Loader = await itemsPool.query("SELECT * FROM blog_post WHERE user_post = $1",
                     [req.user.id]
                 );
     
                 const Blog = Blog_Loader.rows;
                 let Search = null;
                 if (req.query.blog_id) {
-                    const Blog_Search = await db.query("SELECT * FROM blog_post WHERE blog_id = $1",
+                    const Blog_Search = await itemsPool.query("SELECT * FROM blog_post WHERE blog_id = $1",
                         [req.query.blog_id]
                     );
                     Search = Blog_Search.rows[0] || null;
@@ -161,7 +152,7 @@ db.connect();
             const Receive ={
                 Blog_ID: req.body.id,
             };
-            const Blog_Search = await db.query("SELECT * FROM blog_post WHERE blog_id = $1", 
+            const Blog_Search = await itemsPool.query("SELECT * FROM blog_post WHERE blog_id = $1", 
                 [Receive.Blog_ID]
             );
             const Render_Search = Blog_Search.rows[0]
@@ -190,14 +181,14 @@ db.connect();
                 Tags: req.body.tags,
                 Content: req.body.content,
             };
-            const oldImageResult  = await db.query("SELECT blog_image FROM blog_post WHERE blog_id = $1",
+            const oldImageResult  = await itemsPool.query("SELECT blog_image FROM blog_post WHERE blog_id = $1",
                 [req.body.blog_id]
             );
             if (!req.file)  {
                 const OldImage = oldImageResult.rows[0].blog_image;
                     console.log(Change.Old_Image)
                     Change.Image = Change.Old_Image; // If no new image, use the old image
-                    await db.query("UPDATE blog_post SET title = $1, descriptions = $2, tags = $3, blog_image = $4, content = $5 WHERE blog_id = $6",
+                    await itemsPool.query("UPDATE blog_post SET title = $1, descriptions = $2, tags = $3, blog_image = $4, content = $5 WHERE blog_id = $6",
                         [Change.Title, Change.Description, Change.Tags, OldImage, Change.Content, Change.ID]
                     );
                 res.redirect("/profile/edit")
@@ -215,7 +206,7 @@ db.connect();
                 });
 
                 let NewImage = req.file.filename;
-                await db.query("UPDATE blog_post SET title = $1, descriptions = $2, tags = $3, blog_image = $4, content = $5 WHERE blog_id = $6",
+                await itemsPool.query("UPDATE blog_post SET title = $1, descriptions = $2, tags = $3, blog_image = $4, content = $5 WHERE blog_id = $6",
                     [Change.Title, Change.Description, Change.Tags, NewImage, Change.Content, Change.ID]
                 );
                 res.redirect("/profile/edit")
@@ -229,11 +220,11 @@ db.connect();
     });
     router.get("/profile/history", Authenticated,async(req, res)=>{
             try {
-                const All_Blog = await db.query("SELECT * FROM blog_post WHERE user_post = $1",
+                const All_Blog = await itemsPool.query("SELECT * FROM blog_post WHERE user_post = $1",
                     [req.user.id]
                 )
 
-                const result = await db.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
+                const result = await itemsPool.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
                     [req.user.id]
                 );
                     const profile = result.rows[0];
@@ -251,7 +242,7 @@ db.connect();
 
             console.log ("SessionID: " + req.user.id)
 
-            await db.query("DELETE FROM blog_post WHERE blog_id = $1",
+            await itemsPool.query("DELETE FROM blog_post WHERE blog_id = $1",
                 [blogID]
             )
 

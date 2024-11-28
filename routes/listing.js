@@ -1,6 +1,6 @@
 import express from "express";
-import pg from "pg";
 import env from "dotenv";
+import itemsPool from "../DBConfig.js";
 
 import multer from "multer";
 import path from "path"
@@ -36,16 +36,6 @@ const upload = multer({
 
 env.config();
 
-const db = new pg.Client({
-    user: process.env.PG_USER,
-    host: process.env.PG_HOST,
-    database: process.env.PG_DATABASE,
-    password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT,
-});
-
-db.connect();
-
     const Authenticated = (req, res, next) => {
         if (req.isAuthenticated()) {
             return next();
@@ -55,7 +45,7 @@ db.connect();
 
     router.get("/profile", Authenticated, async(req, res)=>{
             try {
-                const result = await db.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
+                const result = await itemsPool.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
                     [req.user.id]
                 );
                     const profile = result.rows[0];
@@ -67,12 +57,12 @@ db.connect();
 
     router.get("/listing", Authenticated, async(req, res)=>{
         try {
-            const Profile_Result = await db.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
+            const Profile_Result = await itemsPool.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
                 [req.user.id]
             );
             const profile = Profile_Result.rows[0];
 
-            const Result = await db.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id ORDER BY name ASC");
+            const Result = await itemsPool.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id ORDER BY name ASC");
             const All_User = Result.rows;
             res.render("listing.ejs", {User: All_User, Load: profile})
         } catch (error) {

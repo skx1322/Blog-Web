@@ -1,21 +1,11 @@
 import express from "express";
-import pg from "pg";
 import env from "dotenv";
+import itemsPool from "../DBConfig.js";
 
 const router = express.Router();
 
 
 env.config();
-
-const db = new pg.Client({
-    user: process.env.PG_USER,
-    host: process.env.PG_HOST,
-    database: process.env.PG_DATABASE,
-    password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT,
-});
-
-db.connect();
 
     const Authenticated = (req, res, next) => {
         if (req.isAuthenticated()) {
@@ -56,9 +46,9 @@ db.connect();
                     break;
             }
 
-            const All_Blog = await db.query(`SELECT * FROM blog_post ORDER BY ${sorting_order.type} ${sorting_order.sort}`
+            const All_Blog = await itemsPool.query(`SELECT * FROM blog_post ORDER BY ${sorting_order.type} ${sorting_order.sort}`
             );
-            const result = await db.query("SELECT * FROM profile WHERE user_id = $1", 
+            const result = await itemsPool.query("SELECT * FROM profile WHERE user_id = $1", 
                 [req.user.id]
             );
             if (result.rows.length > 0){
@@ -93,10 +83,10 @@ db.connect();
     
                 console.log ("SessionID: "+ req.user.id)
     
-                const All_Blog = await db.query("SELECT * FROM blog_post WHERE blog_id = $1",
+                const All_Blog = await itemsPool.query("SELECT * FROM blog_post WHERE blog_id = $1",
                     [blogID]
                 )
-                const result = await db.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
+                const result = await itemsPool.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
                     [req.user.id]
                 );
     

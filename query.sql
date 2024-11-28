@@ -14,7 +14,8 @@ CREATE TABLE profile (
     profile_picture VARCHAR(255) DEFAULT 'Default.png',
     nickname VARCHAR(40),
     timezone VARCHAR(100),
-    register_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    register_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    gender VARCHAR(10)
 );
 
 CREATE TABLE blog_post (

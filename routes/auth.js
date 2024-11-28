@@ -1,10 +1,10 @@
 import express from "express";
-import pg from "pg";
 import bcrypt from "bcrypt";
 import passport from "passport";
 import { Strategy } from "passport-local";
 import GoogleStrategy from "passport-google-oauth2";
 import env from "dotenv";
+import itemsPool from "../DBConfig.js";
 
 const router = express.Router();
 const saltRounds = 10;
@@ -12,15 +12,6 @@ const saltRounds = 10;
 
 env.config();
 
-const db = new pg.Client({
-    user: process.env.PG_USER,
-    host: process.env.PG_HOST,
-    database: process.env.PG_DATABASE,
-    password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT,
-});
-
-db.connect();
 
 
     // Page for login/register + google
@@ -48,7 +39,7 @@ db.connect();
                 password: req.body.password
             }
             try {
-                const AccountMatch = await db.query("SELECT * FROM account WHERE email = $1",
+                const AccountMatch = await itemsPool.query("SELECT * FROM account WHERE email = $1",
                     [register.email]
                 );
                 if (AccountMatch.rows.length > 0) {
@@ -58,12 +49,12 @@ db.connect();
                         if (err) {
                             console.error("Error Hasing Password", err);
                         } else {
-                            const Send = await db.query("INSERT INTO account (name, email, password) VALUES ($1, $2, $3) RETURNING *",
+                            const Send = await itemsPool.query("INSERT INTO account (name, email, password) VALUES ($1, $2, $3) RETURNING *",
                                 [register.username, register.email, hash]
                             );
                             const user = Send.rows[0]; 
 
-                            await db.query(
+                            await itemsPool.query(
                                 "INSERT INTO profile (user_id, profile_picture, nickname, register_date) VALUES ($1, $2, $3, CURRENT_DATE)",
                                 [user.id, 'Default.png', user.name]
                             );
@@ -116,7 +107,7 @@ db.connect();
             { usernameField: "email", passwordField: "password" }, // Specify field names
             async function verify(email, password, cb) {
             try {
-                const result = await db.query("SELECT * FROM account WHERE email = $1", [email]);
+                const result = await itemsPool.query("SELECT * FROM account WHERE email = $1", [email]);
                 if (!result.rows.length > 0) {
                     return cb(null, false);
                 } 
@@ -155,16 +146,16 @@ db.connect();
             async(accessToken, refreshToken, profile, cb)=>{
                 try {
                     console.log(profile);
-                    const result = await db.query("SELECT * FROM account WHERE email = $1",
+                    const result = await itemsPool.query("SELECT * FROM account WHERE email = $1",
                         [profile.email]
                     );
                     if (result.rows.length === 0){
-                        const newUser = await db.query(
+                        const newUser = await itemsPool.query(
                             "INSERT INTO account (name, email, password) VALUES ($1, $2, $3) RETURNING *",
                             [profile.displayName, profile.email, "GOOGLE-METHOD"]
                         );
                         const profile_input = newUser.rows[0]
-                        await db.query(
+                        await itemsPool.query(
                             "INSERT INTO profile (user_id, profile_picture, nickname, register_date) VALUES ($1, $2, $3, CURRENT_DATE)",
                             [profile_input.id, 'Default.png', profile_input.name]
                         );
@@ -185,7 +176,7 @@ db.connect();
         
         passport.deserializeUser(async (account, cb) => {
         try {
-            const result = await db.query("SELECT * FROM account WHERE id = $1", 
+            const result = await itemsPool.query("SELECT * FROM account WHERE id = $1", 
                 [account.id]
             );
             const user = result.rows[0];

@@ -1,6 +1,6 @@
 import express from "express";
-import pg from "pg";
 import env from "dotenv";
+import itemsPool from "../DBConfig.js";
 
 import multer from "multer";
 import path from "path"
@@ -36,16 +36,6 @@ const upload = multer({
 
 env.config();
 
-const db = new pg.Client({
-    user: process.env.PG_USER,
-    host: process.env.PG_HOST,
-    database: process.env.PG_DATABASE,
-    password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT,
-});
-
-db.connect();
-
     const Authenticated = (req, res, next) => {
         if (req.isAuthenticated()) {
             return next();
@@ -55,7 +45,7 @@ db.connect();
 
     router.get("/post", Authenticated,async(req, res)=>{
         try {
-            const result = await db.query("SELECT * FROM profile WHERE user_id = $1", 
+            const result = await itemsPool.query("SELECT * FROM profile WHERE user_id = $1", 
                 [req.user.id]
             );
             if (result.rows.length > 0){
@@ -76,7 +66,7 @@ router.post("/add", upload.single('image') ,async(req, res)=>{
         console.error('No file uploaded')
     }
     try {
-        const User = await db.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
+        const User = await itemsPool.query("SELECT * FROM account INNER JOIN profile ON account.id = profile.user_id WHERE user_id = $1", 
             [req.user.id]
         );
     const Content = {
@@ -95,14 +85,14 @@ router.post("/add", upload.single('image') ,async(req, res)=>{
 
     console.log(Content.User)
     console.log(Content.Image)
-        const Similarity = await db.query("SELECT * FROM blog_post WHERE title = $1", 
+        const Similarity = await itemsPool.query("SELECT * FROM blog_post WHERE title = $1", 
             [Content.Title])
         if (Similarity.rows.length>0) {
             console.log("Name Taken!")
             res.redirect("/post");
         } else {
 
-            await db.query("INSERT INTO blog_post (user_post, username, time_post, title, descriptions, tags, blog_image, content) VALUES ($1, $2, CURRENT_DATE, $3, $4, $5, $6, $7)",
+            await itemsPool.query("INSERT INTO blog_post (user_post, username, time_post, title, descriptions, tags, blog_image, content) VALUES ($1, $2, CURRENT_DATE, $3, $4, $5, $6, $7)",
                 [Content.user_id, Content.User, Content.Title, Content.Description, Content.Tags, Content.Image, Content.Content]
             )
             redirect("/blog.ejs")
