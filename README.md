@@ -1,7 +1,8 @@
 # BlogEJS
 This Project mainly utilize Node.js, Express and EJS and various Node Package Module libraries.
 
-
+# Issue
+Render doesn't provide me a disk or file system so Image that were uploaded to it are not saved
 
 # 1. Node.js and Terminal Install
 - Make sure you're using the Node.js version at least 20.18.0
