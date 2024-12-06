@@ -93,14 +93,6 @@ env.config();
         successRedirect: "/blog",
         failureRedirect: "/",
     }));
-
-    // local login method
-    /* This is a login from local function using passport npm,
-    It first receive email and password from the input in index.ejs.
-    It'll then check if it's a existing email
-    If yes, then we will encrypt the password 
-    If the encrypted password matched the account existing encrypted password, return valid/true
-    If true, return user object variable and consider flash as success*/
     passport.use(
         "local",
         new Strategy(
@@ -140,9 +132,9 @@ env.config();
             {
                 clientID: process.env.GOOGLE_CLIENT_ID,
                 clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-                callbackURL: "http://blog-web-djid.onrender.com/auth/google/secrets",
+                callbackURL: "http://blog-web-djid.onrender.com/auth/google/secrets", 
                 userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
-            },
+            }, // note, this part require new key and callbackURL in google cloud strategy
             async(accessToken, refreshToken, profile, cb)=>{
                 try {
                     console.log(profile);
